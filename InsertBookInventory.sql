@@ -1,1 +1,1 @@
-INSERT INTO `mariadb`.`book` (`BookID`, `book_name`, `quantity`) VALUES ('1', 'Harry Potter 1', '3'), ('2', 'Harry potter 2', '4'), ('3', 'Harry Potter 3', '6'), ('4', 'Harry Potter 4', '3'), ('5', 'Harry Potter 5', '2')
+INSERT INTO `mariadb`.`bookinventory` (`BookID`, `book_name`, `quantity`) VALUES ('1', 'Harry Potter 1', '3'), ('2', 'Harry potter 2', '4'), ('3', 'Harry Potter 3', '6'), ('4', 'Harry Potter 4', '3'), ('5', 'Harry Potter 5', '2')

@@ -1,3 +1,8 @@
+<?php
+// Start the session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,6 +38,7 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -43,8 +49,8 @@
                 <a class="navbar-brand" href="index.html">Bookstore</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="store.html">Store</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li class="active"><a href="store.php">Store</a></li>
                 <li class="disabled"><a href="">Checkout</a></li>
             </ul>
         </div>
@@ -52,22 +58,38 @@
     <main>
         <?php 
 require('mysqli_connect.php');
-$q="select book_name from bookInventory";
+$q="select bookid, book_name from bookInventory";
 $r = @mysqli_query($dbc, $q);
 echo "<table><tr> <th>Book Name</th> </tr>";
 if (!$dbc) { die('Could Not Connect: ' . mysqli_error($dbc) . mysqli_errno($dbc)); }
 $chkRow = mysqli_num_rows($r); 
 if($chkRow>0){
 while($row = mysqli_fetch_array($r)) {
-echo "<tr><td>".$row['book_name']."</td></tr>";
+    
+echo '<tr><td><a href="?run='.$row['bookid'].'">'.$row['book_name']."</a></td></tr>";
+
+
 }
-
-
     
 }
 echo "</table>";
 
 mysqli_close($dbc);
+?>
+
+        <?php 
+        
+        if(isset($_GET['run'])){
+            $id=$_GET['run'];
+            sessionFunc($id);
+        }
+        function sessionFunc($sess_var){
+            $_SESSION["bookname"]=$sess_var;
+            header("Location: checkout.php");
+        }
+
+
+
 ?>
 
     </main>
